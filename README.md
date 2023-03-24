@@ -1,24 +1,3 @@
-# igsj-project
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 입고살자 프로젝트 개인 작업
+이젠아카데미 2차 팀 프로젝트(IGSJ)에서의 개인 작업물  
+리드미 추후 수정/보완 예정  
