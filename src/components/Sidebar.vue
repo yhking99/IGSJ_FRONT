@@ -8,11 +8,11 @@
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <router-link to="/categories/item">OUTER</router-link><br>
-          <router-link to="#">TOP</router-link><br>
-          <router-link to="#">BOTTOM</router-link><br>
-          <router-link to="#">ACC</router-link><br>
-          <router-link to="#">SHOES</router-link>
+          <router-link :to="{name: 'item', params: {cno:100}}">OUTER</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:200}}">TOP</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:300}}">BOTTOM</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:400}}">ACC</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:500}}">SHOES</router-link>
         </div>
       </div>
     </div>
@@ -24,10 +24,10 @@
       </h2>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <router-link to="#">가디건</router-link><br>
-          <router-link to="#">코트</router-link><br>
-          <router-link to="#">패딩</router-link><br>
-          <router-link to="#">재킷</router-link>
+          <router-link :to="{name: 'item', params: {cno:101}}">가디건</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:102}}">코트</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:103}}">패딩</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:104}}">재킷</router-link>
         </div>
       </div>
     </div>
@@ -39,10 +39,10 @@
       </h2>
       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <router-link to="#">니트/스웨터</router-link><br>
-          <router-link to="#">셔츠/블라우스</router-link><br>
-          <router-link to="#">후드</router-link><br>
-          <router-link to="#">맨투맨</router-link>
+          <router-link :to="{name: 'item', params: {cno:201}}">니트/스웨터</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:202}}">셔츠/블라우스</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:203}}">후드</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:204}}">맨투맨</router-link>
         </div>
       </div>
     </div>
@@ -54,10 +54,10 @@
       </h2>
       <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <router-link to="#">슬랙스</router-link><br>
-          <router-link to="#">트레이닝</router-link><br>
-          <router-link to="#">데님팬츠</router-link><br>
-          <router-link to="#">스커트</router-link>
+          <router-link :to="{name: 'item', params: {cno:301}}">슬랙스</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:302}}">트레이닝</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:303}}">데님팬츠</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:304}}">스커트</router-link>
         </div>
       </div>
     </div>
@@ -69,10 +69,10 @@
       </h2>
       <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <router-link to="#">귀걸이</router-link><br>
-          <router-link to="#">목걸이</router-link><br>
-          <router-link to="#">반지</router-link><br>
-          <router-link to="#">벨트</router-link>
+          <router-link :to="{name: 'item', params: {cno:401}}">귀걸이</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:402}}">목걸이</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:403}}">반지</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:404}}">벨트</router-link>
         </div>
       </div>
     </div>
@@ -84,10 +84,10 @@
       </h2>
       <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <router-link to="#">구두</router-link><br>
-          <router-link to="#">운동화</router-link><br>
-          <router-link to="#">샌들</router-link><br>
-          <router-link to="#">슬리퍼</router-link>
+          <router-link :to="{name: 'item', params: {cno:501}}">구두</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:502}}">운동화</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:503}}">샌들</router-link><br>
+          <router-link :to="{name: 'item', params: {cno:504}}">슬리퍼</router-link>
         </div>
       </div>
     </div>

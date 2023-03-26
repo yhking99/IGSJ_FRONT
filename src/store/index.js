@@ -11,6 +11,7 @@ export default createStore({
   mutations: {
     setUrl(state, payload){
       state.urlAddress = payload
+      console.log(state.urlAddress)
       if(state.urlAddress.includes('login')) state.isLogOn=true
       else state.isLogOn=false
     }
