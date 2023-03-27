@@ -98,7 +98,7 @@
 export default { 
   data () { 
     return {
-      sampleData: ''
+
     }
   },
   methods: {
@@ -108,6 +108,14 @@ export default {
 </script>
 
 <style scoped>
+  .accordion-button {
+    background: white;
+    color: black;
+  }
+  .accordion-button:focus {
+    font-weight: bold;
+    box-shadow: none;
+  }
   .accordion-button:hover {
     background: #f2f2f2;
   }

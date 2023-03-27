@@ -67,6 +67,9 @@ export default {
   header {
     width: 100%;
   }
+  .fixed-top {
+    min-width: 1400px;
+  }
   .header-menu {
     display:flex;
     justify-content: space-between;

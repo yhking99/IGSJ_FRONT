@@ -28,6 +28,7 @@ export default {
     grid-template-columns: repeat(5, 20%);
     grid-template-rows: repeat(1, 10%);
     width: 100%;
+    min-width: 1400px;
     height: 100%;
     gap: 0;
     grid-template-areas:
