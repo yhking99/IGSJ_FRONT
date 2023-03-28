@@ -58,29 +58,35 @@ export default {
   },
   created(){
     this.$store.commit('setUrl', window.location.href)
-    this.fn_CategoryDetails()
-    this.fn_showProducts()
+    this.fn_CategoryDetails(this.curCno)
+    this.fn_showProducts(this.curCno)
+  },
+  watch: {
+    $route(to, form) {
+      if (to.path !== form.path) {
+        this.fn_CategoryDetails(this.$route.params.cno)
+        this.fn_showProducts(this.$route.params.cno)
+      }
+    }
   },
   methods: {
-    fn_CategoryDetails () {
-      this.$axios.get(this.$serverUrl + '/category/items/' + this.curCno)
+    fn_CategoryDetails (cno) {
+      this.$axios.get(this.$serverUrl + '/category/items/' + cno)
       .then((res) => {
         this.midLvCatArr = res.data
-        console.log(this.midLvCatArr)
       }).catch((err) => {
         if (err.message.indexOf('Network Error') > -1) {
-          alert('errorC')
+          alert('Category Error')
         }
       })
     },
-    fn_showProducts() {
-      this.$axios.get(this.$serverUrl + '/product/items/' + this.curCno)
+    fn_showProducts(cno) {
+      this.$axios.get(this.$serverUrl + '/product/items/' + cno)
       .then((res) => {
         this.allProducts = res.data
-        console.log(this.allProducts)
       }).catch((err) => {
         if (err.message.indexOf('Network Error') > -1) {
-          alert('errorP')
+          alert('Products Error')
         }
       })
     }

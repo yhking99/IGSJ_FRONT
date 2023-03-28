@@ -3,7 +3,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   state: {
-    isLogOn: false,
+    signInPage: false,
     urlAddress: 'location'
   },
   getters: {
@@ -12,8 +12,9 @@ export default createStore({
     setUrl(state, payload){
       state.urlAddress = payload
       console.log(state.urlAddress)
-      if(state.urlAddress.includes('login')) state.isLogOn=true
-      else state.isLogOn=false
+      console.log(state.signInPage)
+      if(state.urlAddress.includes('login')) state.signInPage=true
+      else state.signInPage=false
     }
   },
   actions: {

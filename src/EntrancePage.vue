@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.state.isLogOn">
+  <div v-if="this.$store.state.signInPage">
     <router-view/>
   </div>
   <div v-else>
