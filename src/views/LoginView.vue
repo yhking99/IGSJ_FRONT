@@ -1,4 +1,4 @@
-<template> <!-- memberLogin()  // /member/memberlogin  -->
+<template>
   <div class="login-container">
     <div class="login">
       <p>로그인</p>
@@ -7,9 +7,9 @@
         <button @click="forGuest">비회원 주문 조회</button>
       </div>
       <div class="member-login" v-if="this.loginOption==='forMember'">
-        <input type="text" placeholder="아이디">
-        <input type="password" placeholder="비밀번호">
-        <button class="login-btn">로그인</button>
+        <input type="text" v-model="id" placeholder="아이디">
+        <input type="password" v-model="pwd" autocomplete="on" placeholder="비밀번호">
+        <button class="login-btn" @click="memberLogin">로그인</button>
         <div class="search-info">
           <a href="#">아이디 찾기</a>
           <a href="#">비밀번호 찾기</a>
@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       loginOption: 'forMember',
-      userId : '',
-      userPwd : ''
+      id : '',
+      pwd : ''
     }
   },
   created(){
@@ -46,17 +46,16 @@ export default {
   },
   methods : {
     memberLogin(){
-        this.memberDTO = {
-          userId : this.userId,
-          userPwd : this.userPwd
+      this.$axios.post(this.$serverUrl + '/member/memberLogin', {
+          userId : this.id,
+          userPwd : this.pwd
+      }).then((res) => {
+        this.$store.commit('signIn', res.data)
+        this.$router.replace('/')
+      }).catch((err) => {
+        if (err.message.indexOf('Network Error') > -1) {
+          alert('Error')
         }
-      this.$axios.post(this.$serverUrl + '/memberlogin', this.memberDTO
-      ).then((res) => {
-        console.log(res)
-        console.log(res.data)
-
-      }).catch((error) => {
-        console.log(error)
       })
     },
     forMember(){

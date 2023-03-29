@@ -5,8 +5,9 @@
         <span class="logo">
           <router-link to="/">IGSJ</router-link>
         </span>
-        <span>
-          <input class="search" type="text" placeholder="로라로라 × 재유 최대 10% 할인"/>
+        <span class="search_cont">
+          <input id="search" class="search" type="text" placeholder="로라로라 × 재유 최대 10% 할인" maxlength="20"/>
+          <router-link to="/product/search" class="search_btn" style="color:green;"></router-link>
         </span>
         <span class="rank_bar">
           <p class="rank">{{rank}}</p>
@@ -26,13 +27,17 @@
       </div>
     </nav>
     <nav class="fixed-top header-submenu">
-      <router-link to="/login"><button class="login_btn">로그인</button></router-link>
+      <router-link to="/login" v-if="this.$store.state.idConfirmed===false"><button class="login_btn">로그인</button></router-link>
+      <div class="id-reveal" v-if="this.$store.state.idConfirmed===true">
+        {{this.$store.state.userInfo.userId}}
+      </div>
       <router-link to="#">마이페이지</router-link>
       <router-link to="#">최근 본 상품</router-link>
       <router-link to="#" style="color:red;">좋아요</router-link>
       <router-link to="#">장바구니</router-link>
       <router-link to="#">주문배송조회</router-link>
       <router-link to="#">고객센터</router-link>
+      <div v-if="this.$store.state.idConfirmed===true" @click="this.$store.commit('signOut')">로그아웃</div>
     </nav>
   </header>
 </template>
@@ -91,12 +96,24 @@ export default {
     margin-right: 20px;
     text-decoration: none;
   }
-  .search {
-    height: 30px;
+  .search_cont {
+    display: flex;
     width: 300px;
-    margin: 10px 0 10px 6px;
+    height: 30px;
+    border: 1px solid darkgrey;
+    padding: 0;
+  }
+  .search {
+    height: 100%;
+    width: 90%;
     border: none;
     outline: none;
+  }
+  .search_btn {
+    width: 30px;
+    height: 28.5px;
+    border: none;
+    background: black;
   }
   .rank_bar {
     width: 350px;
@@ -164,6 +181,13 @@ export default {
     content: "";
     margin-right: 0;
   }
+  .header-submenu div:last-child {
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
   .login_btn {
     width: 160px;
     height: 30px;
@@ -176,5 +200,14 @@ export default {
     border: 1px solid black;
     background: black;
     color: white;
+  }
+  .id-reveal {
+    width:160px;
+    height:30px;
+    font-size:18px;
+    color:black;
+    font-weight:bold;
+    text-align:center;
+    overflow:hidden;
   }
 </style>

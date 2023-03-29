@@ -1,9 +1,11 @@
 <template>
   <div class="section">
-    <div class="section-menu" style="">
+    <div class="section-menu">
         <h5>{{title}}</h5>
     </div>
-    <div class="section-content"></div>
+    <div class="section-content">
+      <iframe src="https://www.youtube.com/embed/2gr4h9_R7S8" style="width:500px; height: 350px;"></iframe>
+    </div>
   </div>
 </template>
 
@@ -37,6 +39,10 @@ export default {
   }
   .section-content {
     grid-area: b;
+  }
+  h5 {
+    margin-top: 10px;
+    text-align: center;
   }
 </style>
 
