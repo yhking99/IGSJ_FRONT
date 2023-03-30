@@ -6,8 +6,8 @@
           <router-link to="/">IGSJ</router-link>
         </span>
         <span class="search_cont">
-          <input id="search" class="search" type="text" placeholder="로라로라 × 재유 최대 10% 할인" maxlength="20"/>
-          <router-link to="/product/search" class="search_btn" style="color:green;"></router-link>
+          <input id="search" class="search" type="text" placeholder="로라로라 × 재유 최대 10% 할인" maxlength="20" v-model="toSearch"/>
+          <button class="search_btn" @click="searchProducts"></button>
         </span>
         <span class="rank_bar">
           <p class="rank">{{rank}}</p>
@@ -49,7 +49,8 @@ export default {
       rank: 1,
       product:'상품',
       rankArr: ['니트', '가디건', '슬랙스', '샌들', '블라우스', '스커트', '맨투맨', '후드', '트레이닝', '재킷'],
-      fn_rankShow: null
+      fn_rankShow: null,
+      toSearch: ''
     }
   },
   mounted(){
@@ -63,6 +64,10 @@ export default {
         if(this.rank>10) this.rank=1
         this.product=this.rankArr[Number(this.rank)-1]
       }, 2000)
+    },
+    searchProducts(){
+      // this.emitter.emit('typedData', this.toSearch)
+      this.$router.push({name: 'search', params: {typed: this.toSearch}})
     }
   }
 }

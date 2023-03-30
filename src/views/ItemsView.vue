@@ -33,7 +33,7 @@
       <ul>
         <li :key=i v-for="(prd, i) in allProducts">
           <div class="select-product">
-            <router-link to="#">
+            <router-link :to="{name: 'product', params: {pno: prd.pno}}">
               <img class="thumb-img" :src="prd.thumb">
               <div class="thumb-desc">
                 <span><b>{{prd.product_name}}</b></span><br>

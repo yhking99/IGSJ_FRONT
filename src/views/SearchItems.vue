@@ -1,7 +1,25 @@
 <template>
   <div>
-    <span>입력값(검색어)을 문장열로 받아서 서버로 전송, 아래 쿼리문 실행</span>
-    <h1>SELECT * <br>FROM ProductDTO <br>WHERE product_name LIKE '%{입력값}%';</h1>
+    <p class="typedData"><span>'{{typedParam}}'</span>에 대한 검색결과</p>
+    <hr>
+    <div class="all-products">
+      <ul>
+        <li :key=i v-for="(prd, i) in searchedProducts">
+          <div class="select-product">
+            <router-link :to="{name: 'product', params: {pno: prd.pno}}">
+              <img class="thumb-img" :src="prd.thumb">
+              <div class="thumb-desc">
+                <span><b>{{prd.product_name}}</b></span><br>
+                <span>{{Number(prd.product_price).toLocaleString()}}원</span>
+              </div>
+            </router-link>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="all-products" v-if="this.searchedProducts.length===0">
+      <h5 style="text-align:center; color:grey;">판매 중인 상품이 없습니다. 검색어를 변경해 보세요.</h5>
+    </div>
   </div>
 </template>
 
@@ -9,9 +27,90 @@
 export default { 
   data () { 
     return {
-      
+      typedParam: '',
+      searchedProducts: {}
     }
   },
-  methods: {}
+  created(){
+    // this.emitter.on('typedData', (toSearch)=>{
+    //   this.typedParam = toSearch
+    // })
+    this.typedParam = this.$route.params.typed
+    this.fn_searchedProducts(this.typedParam)
+  },
+  watch: {
+    $route(to, form) {
+      if (to.path !== form.path) {
+        this.typedParam = this.$route.params.typed
+        this.fn_searchedProducts(this.typedParam)
+      }
+    }
+  },
+  methods: {
+    fn_searchedProducts(typed){
+      this.$axios.get(this.$serverUrl + '/product/search?type='+typed)
+      .then((res) => {
+        this.searchedProducts = res.data
+      }).catch((err) => {
+        if (err.message.indexOf('Network Error') > -1) {
+          alert('Listing Error')
+        }
+      })
+    }
+  }
 }
 </script>
+
+<style scoped>
+  .typedData {
+    height: 36px;
+    padding-left: 16px;
+    padding-top: 10px;
+  }
+  .typedData span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #33ccff;
+  }
+  .all-products {
+    width:100%
+  }
+  .all-products ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    justify-content: left;
+    margin: 30px;
+  }
+  .all-products ul li {
+    list-style-type: none;
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+  .select-product {
+    width: 240px;
+    height: 300px;
+    border: 1px solid darkgrey;
+  }
+  .select-product:hover {
+    background: #f2f2f2;
+  }
+  .select-product a {
+    text-decoration: none;
+    color: black;
+  }
+  .thumb-img {
+    display: block;
+    width: 150px;
+    height: 180px;
+    background: green;
+    margin: 20px auto 0;
+  }
+  .thumb-desc {
+    width: 150px;
+    height: 90px;
+    margin: 0 auto;
+    text-align: center;
+  }
+</style>
