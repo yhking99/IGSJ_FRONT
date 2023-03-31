@@ -1,6 +1,4 @@
 <!-- 카테고리 대분류, 중분류 내용 필요 -->
-<!-- 주문 수량, 가격 연동 필요 -->
-<!-- back에서 List가 아니라 DTO로 그냥 받기 -->
 <template>
   <div class="aboutProduct">
     <div class="inner-product">

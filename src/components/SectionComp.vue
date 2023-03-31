@@ -32,7 +32,7 @@ export default {
     gap: 0;
     grid-template-areas:
       "a b b b b b b b" ;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 1px solid lightgrey;
   }
   .section-menu {
     grid-area: a;

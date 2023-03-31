@@ -7,7 +7,8 @@ export default createStore({
     urlAddress: 'location',
     idConfirmed: false,
     userInfo:{}
-    //로그인 보안 취약(Application - Local Storage에 비밀번호 드러남, 추후 보완)
+    // 로그인 보안 취약(Application - Local Storage에 비밀번호 드러남
+    // 추후 보완 예정 - Server(Back)에서 bcrypt 활용
   },
   getters: {
   },

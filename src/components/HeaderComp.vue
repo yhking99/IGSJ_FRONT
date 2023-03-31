@@ -6,8 +6,12 @@
           <router-link to="/">IGSJ</router-link>
         </span>
         <span class="search_cont">
-          <input id="search" class="search" type="text" placeholder="로라로라 × 재유 최대 10% 할인" maxlength="20" v-model="toSearch"/>
-          <button class="search_btn" @click="searchProducts"></button>
+          <input id="search" class="search" type="text" maxlength="20" v-model="toSearch" @keyup.enter="searchProducts" placeholder="로라로라 × 재유 최대 10% 할인"/>
+          <button class="search_btn" @click="searchProducts">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
         </span>
         <span class="rank_bar">
           <p class="rank">{{rank}}</p>
@@ -22,7 +26,7 @@
         <router-link to="#">스페셜</router-link>
         <router-link to="#">매거진</router-link>
         <router-link to="#">TV</router-link>
-        <router-link to="#">이벤트</router-link>     
+        <router-link to="#">이벤트</router-link>
         <router-link to="#">브랜드</router-link>
       </div>
     </nav>
@@ -31,7 +35,7 @@
       <div class="id-reveal" v-if="this.$store.state.idConfirmed===true">
         {{this.$store.state.userInfo.userId}}
       </div>
-      <router-link to="#">마이페이지</router-link>
+      <router-link :to="link">마이페이지</router-link>
       <router-link to="#">최근 본 상품</router-link>
       <router-link to="#" style="color:red;">좋아요</router-link>
       <router-link to="#">장바구니</router-link>
@@ -44,13 +48,16 @@
 
 <script>
 export default {
+  // const inputCond = /^\s/
+  // inputCond.test(this.toSearch)
   data () {
     return {
       rank: 1,
       product:'상품',
       rankArr: ['니트', '가디건', '슬랙스', '샌들', '블라우스', '스커트', '맨투맨', '후드', '트레이닝', '재킷'],
       fn_rankShow: null,
-      toSearch: ''
+      toSearch: '',
+      link: '/login'
     }
   },
   mounted(){
@@ -66,8 +73,8 @@ export default {
       }, 2000)
     },
     searchProducts(){
-      // this.emitter.emit('typedData', this.toSearch)
-      this.$router.push({name: 'search', params: {typed: this.toSearch}})
+      if(this.toSearch==='' || this.toSearch.length===0) {alert('검색어를 입력하세요.')}
+      else {this.$router.push({name: 'search', params: {typed: this.toSearch}})}
     }
   }
 }

@@ -46,7 +46,7 @@ export default {
   }
   .side   {
     grid-area: a;
-    border-right: 1px solid darkgrey;
+    border-right: 1px solid lightgrey;
   }
   .middle {
     grid-area: b;

@@ -3,12 +3,12 @@
     <div class="login">
       <p>로그인</p>
       <div class="login-option">
-        <button @click="forMember" v-focus>가입 회원</button>
-        <button @click="forGuest">비회원 주문 조회</button>
+        <button :class="{'focused':memberActivate}" @click="forMember">가입 회원</button>
+        <button :class="{'focused':guestActivate}" @click="forGuest">비회원 주문 조회</button>
       </div>
-      <div class="member-login" v-if="this.loginOption==='forMember'">
-        <input type="text" v-model="id" placeholder="아이디">
-        <input type="password" v-model="pwd" autocomplete="on" placeholder="비밀번호">
+      <div class="member-login" v-if="this.memberActivate">
+        <input id="id" type="text" v-model="id" maxlength="20" placeholder="아이디" v-focus>
+        <input id="pwd" type="password" v-model="pwd" maxlength="30" autocomplete="on" placeholder="비밀번호">
         <button class="login-btn" @click="memberLogin">로그인</button>
         <div class="search-info">
           <a href="#">아이디 찾기</a>
@@ -16,7 +16,7 @@
         </div>
         <button class="KAKAO_login-btn">카카오 로그인</button>
       </div>
-      <div class="non-member" v-if="this.loginOption==='forGuest'">
+      <div class="non-member" v-if="this.guestActivate">
         <span>주문자명</span>
         <input type="text">
         <span>주문번호</span>
@@ -36,7 +36,8 @@
 export default {
   data() {
     return {
-      loginOption: 'forMember',
+      memberActivate: true,
+      guestActivate: false,
       id : '',
       pwd : ''
     }
@@ -46,23 +47,43 @@ export default {
   },
   methods : {
     memberLogin(){
-      this.$axios.post(this.$serverUrl + '/member/memberLogin', {
+      if(this.id==='' || this.id.length===0) {
+        alert('아이디를 입력해 주세요.')
+        document.querySelector('#id').focus()
+      }
+      else if(this.pwd==='' || this.pwd.length===0) {
+        alert('비밀번호를 입력해 주세요.')
+        document.querySelector('#pwd').focus()
+      }
+      else {
+        this.$axios.post(this.$serverUrl + '/member/memberLogin', {
           userId : this.id,
           userPwd : this.pwd
-      }).then((res) => {
-        this.$store.commit('signIn', res.data)
-        this.$router.replace('/')
-      }).catch((err) => {
-        if (err.message.indexOf('Network Error') > -1) {
-          alert('Error')
-        }
-      })
+        }).then((res) => {
+          if(res.data.userId===undefined){
+            alert('아이디 또는 패스워드를 확인하세요.')
+            this.id=''
+            this.pwd=''
+            document.querySelector('#id').focus()
+          }
+          else {
+            this.$store.commit('signIn', res.data)
+            this.$router.replace('/')
+          }
+        }).catch((err) => {
+          if (err.message.indexOf('Network Error') > -1) {
+            alert('Error')
+          }
+        })
+      }
     },
     forMember(){
-      this.loginOption='forMember'
+      this.memberActivate = true
+      this.guestActivate = false
     },
     forGuest(){
-      this.loginOption='forGuest'
+      this.memberActivate = false
+      this.guestActivate = true
     }
   },
   directives: {
@@ -132,10 +153,10 @@ export default {
     padding-bottom: 8px; 
     margin-bottom: 12px;
   }
-  .login-option button:focus {
-    border-bottom:2px solid black;
+  .focused {
     font-weight:bold;
     outline:none;
+    border-bottom:2px solid black !important;
   }
   .search-info {
     width:350px;

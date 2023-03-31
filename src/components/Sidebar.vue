@@ -2,7 +2,7 @@
   <div class="accordion" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <button v-focus class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           전체
         </button>
       </h2>
@@ -94,6 +94,18 @@
   </div>
 </template>
 
+<script>
+export default {
+  directives: {
+    focus: {
+      mounted(el){
+        el.focus()
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
   .accordion-button {
     background: white;
@@ -102,12 +114,19 @@
   .accordion-button:focus {
     font-weight: bold;
     box-shadow: none;
+    border-bottom: 1px solid lightgrey;
+    border-radius: 0px;
+    background: #f2f2f2;
   }
   .accordion-button:hover {
     background: #f2f2f2;
+    border-radius: 0px;
   }
   .accordion-body a:hover {
     font-weight:bold;
+  }
+  .accordion-item {
+    border-radius: 0px;
   }
   a {
     text-decoration: none;
