@@ -35,7 +35,7 @@
       <div class="id-reveal" v-if="this.$store.state.idConfirmed===true">
         {{this.$store.state.userInfo.userId}}
       </div>
-      <router-link :to="link">마이페이지</router-link>
+      <router-link to= "/passverify">마이페이지</router-link>
       <router-link to="#">최근 본 상품</router-link>
       <router-link to="#" style="color:red;">좋아요</router-link>
       <router-link to="#">장바구니</router-link>
