@@ -19,7 +19,11 @@ const routes = [
   { path: '/InquireList', name: 'InquireList', component: InquireList },
   { path: '/InquireWrite', name: 'InquireWrite', component: InquireWrite },
   { path: '/InquireView', name: 'InquireView', component: InquireView },
-  { path: '/InquireModify', name: 'InquireModify', component: InquireModify }
+  { path: '/InquireModify', name: 'InquireModify', component: InquireModify },
+  { path : '/joinmember', name : 'joinmember', component: () => import("../components/JoinMember.vue")},
+  { path : '/mypage', name : 'mypage', component: () => import("../components/MyPage.vue")},
+  { path : '/passverify', name : 'passverify', component: () => import("../components/PassVerify.vue")}
+
 ]
 
 const router = createRouter({
