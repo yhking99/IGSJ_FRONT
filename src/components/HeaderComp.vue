@@ -40,7 +40,7 @@
       <router-link to="#" style="color:red;">좋아요</router-link>
       <router-link to="#">장바구니</router-link>
       <router-link to="#">주문배송조회</router-link>
-      <router-link to="#">고객센터</router-link>
+      <router-link to="/NoticeList">고객센터</router-link>
       <div v-if="this.$store.state.idConfirmed===true" @click="this.$store.commit('signOut')">로그아웃</div>
     </nav>
   </header>
