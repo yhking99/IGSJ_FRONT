@@ -2,18 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainComp from '../components/MainComp.vue'
 
 const routes = [
-<<<<<<< HEAD
-  { path: '/', name: 'home', component: MainComp },
-  { path: '/login', name: 'login', component: () => import("../views/LoginView.vue") },
-  { path: '/categories/item/:cno', name: 'item', component: () => import("../views/ItemsView.vue") },
-  { path: '/product/search/:typed', name: 'search', component: () => import("../views/SearchItems.vue") },
-  { path: '/product/detail/:pno', name: 'product', component: () => import("../views/ProductDetail.vue") },
-  { path: '/orderList', name: 'orderlist', component: () => import("../views/OrderList.vue")},
-  { path: '/orderPage', name: 'orderPage', component: () => import("../views/OrderPage.vue")},
-  { path: '/orderFinish', name: 'orderFinish', component: () => import("../views/OrderFinish.vue")},
-  { path: '/orderDetail', name: 'orderDetail', component: () => import("../views/OrderDetail.vue")}
-=======
-
   { path: '/',                      name: 'home',          component: MainComp },
   { path: '/login',                 name: 'login',         component: () => import("../views/LoginView.vue") },
   { path: '/categories/item/:cno',  name: 'item',          component: () => import("../views/ItemsView.vue") },
@@ -29,9 +17,12 @@ const routes = [
   { path : '/mypage',               name : 'mypage',       component: () => import("../components/MyPage.vue")},
   { path : '/passverify',           name : 'passverify',   component: () => import("../components/PassVerify.vue")},
   { path : '/notice/NoticeWrite',   name : 'NoticeWrite',  component : () => import("../views/NoticeWrite")},
-  { path: '/cart',                  name: 'cart',          component: () => import("../views/Cart.vue")}
+  { path: '/cart',                  name: 'cart',          component: () => import("../views/Cart.vue")},
+  { path: '/orderList',             name: 'orderlist', component: () => import("../views/OrderList.vue")},
+  { path: '/orderPage',             name: 'orderPage', component: () => import("../views/OrderPage.vue")},
+  { path: '/orderFinish',           name: 'orderFinish', component: () => import("../views/OrderFinish.vue")},
+  { path: '/orderDetail',           name: 'orderDetail', component: () => import("../views/OrderDetail.vue")}
 
->>>>>>> c816f3fc3b025cf34a04184028e8fc003d98a618
 ]
 
 const router = createRouter({
