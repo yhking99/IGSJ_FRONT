@@ -1,42 +1,38 @@
 <template>
-<div class = "container">
-    <form class = "form-horizontal">
-        <div class = "form-group">
-			<div class = "col-sm-offset-2 col-sm-4">
-				<h2 align = "center">비밀번호 입력</h2>
-			</div>
+<section class = "container">
+    <div>
+		<header class = "passpageHeader">
+				<h2>마이페이지(Login)</h2>
+		</header>
+        <br/>
+    <div class = "loginbox">
+        <div class = "input-id">
+                <label>아이디</label>
+				<input type = "text" v-model = "userId" maxlength = "20" readonly/>
 		</div>
-        <div class = "form-group">
-			<label for = "id" class = "col-sm-3 control-label">아이디</label>
-			<div class = "col-sm-2">
-				<input type = "text" class = "form-control" id = "id" v-model = "userId" onkeyup="this.value=this.value.replace(/[^a-zA-Z][^0-9]/g,'');" maxlength = "20" readonly/>
-			</div>
+        <br/>
+        <div class = "input-pass">
+		    <label>비밀번호</label>
+			<input type = "password"  v-model = "userPwd" maxlength = "20" placeholder = "비밀번호 입력"/>
 		</div>
-        <div class = "form-group">
-		<label for = "pwd" class = "col-sm-3 control-label">비밀번호</label>
-			<div class = "col-sm-2">
-				<input type = "password" class = "form-control" id = "pwd" v-model = "userPwd" maxlength = "20" placeholder = "비밀번호 입력"/>
-			</div>
-		</div>
-        <div class="user-update">
-            <button type="submit" id="update-btn" @click = "enterEdit()">확인</button>
+        <br/>
+        <br/>
+        <div class="passok">
+            <button type="submit" id = "btn-ok" class = "btn btn-dark" @click = "enterEdit()">확인</button>
         </div>
-        <div class="user-withdrawal">
-                <button type="button" id="withdrawal-btn" name="withdrawal-btn" @click = "goHome()">메인페이지</button>
+        <div class ="passmain">
+            <button type="button" id = "btn-main" class = "btn btn-light"  @click = "goHome()">메인페이지</button>
         </div>
-        </form> 
     </div>
+</div>
+</section>
 </template>
 
 <script>
+
  export default {
     data () {
         return {
-            // memberDTO : 
-            // {
-            // userId : ''
-            // },
-            // userPwd : ''
             memberDTO : {},
             userId:'',
             userPwd:''
@@ -61,7 +57,7 @@
                 }
             })
         },
-         enterEdit() {
+        enterEdit() {
             this.$axios.post(this.$serverUrl + "/member/passVerify", {
                 userId: this.userId,
                 userPwd:this.userPwd
@@ -69,8 +65,8 @@
                 console.log(res.data)
                 if(res.data == 1) {
                     alert("비밀번호 인증 성공")
-                    // location.href = "http://localhost:8080/"
-                    this.$router.push({name:'MyPage'})
+                    location.href = "http://localhost:8080/mypage"
+                    // this.$router.push({name:'MyPage'})
                 } else if(res.data == 0) {
                     alert("비밀번호 인증 실패")
                 }
@@ -83,5 +79,50 @@
     }
 }
 
-
 </script>
+
+<style scope>
+.passpageHeader {
+	display: flex;
+    float : center;
+    align-items: center;
+	border-bottom: 3px solid #000000;
+	padding-bottom: 5px;
+	margin-top: 30px;
+	line-height: 1.5;
+	position: relative;
+}
+.passpageHeader h2 {
+    color:#000000;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+input {
+    width: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    background-color: #EEEFF1;
+}
+.input-id label {
+    margin-right: 40px
+}
+.input-pass label {
+    margin-right: 22px
+}
+#btn-ok {
+    width: 30%;
+    margin-bottom : 10px;
+    margin-left : 30px;
+}
+#btn-main {
+    width : 30%;
+    margin-bottom : 10px;
+    margin-left : 30px;
+}
+
+</style>
