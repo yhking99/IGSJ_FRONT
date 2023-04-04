@@ -31,14 +31,14 @@
     </table>
 
     <div class="n-btn-group">
-      <router-link to="/InquireWrite">
+      <router-link to="/inquire/InquireWrite">
         <button class="n-btn">문의하기</button>
       </router-link>
     </div>
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
   data() {
     return {

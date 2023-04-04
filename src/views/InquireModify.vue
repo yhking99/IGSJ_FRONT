@@ -9,13 +9,13 @@
           <span class="tap-t">평일 9:00 ~ 18:00</span>
         </li>
         <li class="cs-tap">
-          <router-link to="/InquireWrite" class="button">
+          <router-link to="/inquire/InquireWrite" class="button">
             <span class="tap-title">1:1 Q&A</span>
             <span class="tap-t">문의하러가기</span>
           </router-link>
         </li>
         <li class="cs-tap">
-          <router-link to="/InquireList" class="button">
+          <router-link to="/inquire/InquireList" class="button">
             <span class="tap-title">My Question</span>
             <span class="tap-t">내 문의내역</span>
           </router-link>
@@ -87,7 +87,7 @@
         <button @click="qna_add();" class="n-btn btn-accent">수정하기</button>
       </div>
       </form>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -97,7 +97,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 th, td {
     margin: 0;
     padding: 0;
