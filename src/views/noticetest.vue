@@ -9,13 +9,13 @@
           <span class="tap-t">평일 9:00 ~ 18:00</span>
         </li>
         <li class="cs-tap">
-          <router-link to="/InquireWrite" class="button">
+          <router-link to="/inquire/InquireWrite" class="button">
             <span class="tap-title">1:1 Q&A</span>
             <span class="tap-t">문의하러가기</span>
           </router-link>
         </li>
         <li class="cs-tap">
-          <router-link to="/InquireList" class="button">
+          <router-link to="/inquire/InquireList" class="button">
             <span class="tap-title">My Question</span>
             <span class="tap-t">내 문의내역</span>
           </router-link>
@@ -25,69 +25,109 @@
 
     <div class="board-contents">
       <h2 class="title-t">Notice</h2>
-        <table class="notice-table">
-          <colgroup>
-            <col style="width:8%">
-            <col style="width:10%">
-            <col style="width:20%">
-            <col style="width:*">
-            <col style="width:20%">
-          </colgroup>
-          <thead>
-            <th scope="col">번호</th>
-            <th scope="col">게시자</th>
-            <th scope="col">제목</th>
-            <th scope="col">내용</th>
-            <th scope="col">등록일</th>
-          </thead>
-          <tbody>
-            <tr :key="i" v-for="(board, i) in boardList">
-              <router-link to="/NoticeView">
-                <td><a>{{ board.bno }}</a></td>
-                <td><a>{{ board.writer }}</a></td>
-                <td><a>{{ board.title }}</a></td>
-                <td><a>{{ board.content }}</a></td>
-                <td><a>{{ board.reg_date }}</a></td>
-                </router-link>
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination-box">
-          <div class="pagination">
-            <div class="wrapper">
-              <a href="#" class="paging-btn btn prev">&lt;</a>
-              <a href="#" class="paging-btn btn active">1</a>
-              <a href="#" class="paging-btn btn next">&gt;</a>
-            </div>
+      <table class="notice-table">
+        <colgroup>
+          <col style="width:8%">
+          <col style="width:10%">
+          <col style="width:20%">
+          <col style="width:*">
+          <col style="width:20%">
+        </colgroup>
+        <thead>
+          <th scope="col">번호</th>
+          <th scope="col">게시자</th>
+          <th scope="col">제목</th>
+          <th scope="col">내용</th>
+          <th scope="col">등록일</th>
+        </thead>
+        <tbody>
+          <tr :key="i" v-for="(board, i) in noticeList">
+
+            <router-link :to="{ name: 'NoticeView', params: { bno: board.bno } }">
+              <!-- name은 index.js에 지정된 경로 이름을 나타냄, params는 지정된 경로에 보내줄 값을 나타냄 -->
+
+              <td>{{ board.bno }}</td>
+              <td><a>{{ board.writer }}</a></td>
+              <td>{{ board.title }}</td>
+              <td>{{ board.content }}</td>
+              <td>{{ convertTime(board.reg_date) }}</td>
+            </router-link>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination-box">
+        <div class="pagination">
+          <div class="wrapper">
+            <a href="#" class="paging-btn btn prev">&lt;</a>
+            <a href="#" class="paging-btn btn active">1</a>
+            <a href="#" class="paging-btn btn next">&gt;</a>
           </div>
+        </div>
+      </div>
+      <div>
+        <router-link to="/notice/NoticeWrite">
+          <span>공지사항작성</span>
+        </router-link>
       </div>
 
     </div>
 
   </div>
-
-
 </template>
 
 <script>
+
 export default {
+  /*
+    private int bno;
+    private String writer;
+    private String title;
+    private String content;
+    private Date reg_date;
+  */
   data() {
     return {
-      boardList: [
-        {
-          bno : "1",
-          title: "테스트",
-          writer: "나",
-          content: "내용임",
-          reg_date: "2023.03.26"
-        }
-      ]
-    };
+      noticeList: {
+        bno: '',
+        writer: '',
+        content: '',
+        title: '',
+        reg_date: this.convertTime()
+      },
+    }
   },
+  created() {
+    this.getNoticeList();
+  },
+  methods: {
+    getNoticeList() {
+      this.$axios.get(this.$serverUrl + '/notice/NoticeList').
+        then((res) => {
+          console.log(res.data)
+          this.noticeList = res.data;
+
+        }).catch((err) => {
+          console.log(err);
+
+        })
+    },
+
+    convertTime(noticeTime) {
+      var time = new Date(noticeTime).getTime();
+      var date = new Date(time);
+      let noticeYear = date.getFullYear();
+      let noticeMonth = date.getMonth() + 1;
+      let noticeDate = date.getDate();
+
+      let fullDate = noticeYear + "-" + noticeMonth + "-" + noticeDate;
+
+      return fullDate;
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 body {
   margin: 0;
 }
@@ -103,7 +143,6 @@ table {
   border-collapse: collapse;
 }
 td,th {
-  border: 1px solid #ccc;
   text-align: left;
 }
 
@@ -199,8 +238,7 @@ td,th {
   height: 42px;
   line-height: 42px;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  
 }
 .pagination {
   width: auto;
@@ -211,5 +249,5 @@ td,th {
   min-width: 33px;
   padding: 0 2px;
 }
-  
+
 </style>

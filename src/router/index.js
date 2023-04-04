@@ -6,6 +6,7 @@ import InquireList from '../views/InquireList.vue'
 import InquireWrite from '../views/InquireWrite.vue'
 import InquireView from '../views/InquireView.vue'
 import InquireModify from '../views/InquireModify.vue'
+import noticetest from '../views/noticetest.vue'
 
 
 const routes = [
@@ -20,6 +21,7 @@ const routes = [
   { path: '/InquireWrite', name: 'InquireWrite', component: InquireWrite },
   { path: '/InquireView', name: 'InquireView', component: InquireView },
   { path: '/InquireModify', name: 'InquireModify', component: InquireModify },
+  { path: '/noticetest', name: 'noticetest', component: noticetest },
   { path : '/joinmember', name : 'joinmember', component: () => import("../components/JoinMember.vue")},
   { path : '/mypage', name : 'mypage', component: () => import("../components/MyPage.vue")},
   { path : '/passverify', name : 'passverify', component: () => import("../components/PassVerify.vue")}
