@@ -24,7 +24,7 @@ export default createStore({
     signIn(state, payload){
       state.userInfo = payload
       state.idConfirmed = true
-      state.myPageLink = '/MyPage'
+      state.myPageLink = '/passverify'
     },
     signOut(state){
       state.userInfo = {}
