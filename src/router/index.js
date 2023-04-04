@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 import MainComp from '../components/MainComp.vue'
 
 const routes = [
@@ -18,8 +17,8 @@ const routes = [
   { path : '/joinmember',           name : 'joinmember',   component: () => import("../components/JoinMember.vue")},
   { path : '/mypage',               name : 'mypage',       component: () => import("../components/MyPage.vue")},
   { path : '/passverify',           name : 'passverify',   component: () => import("../components/PassVerify.vue")},
-  { path : '/notice/NoticeWrite',   name : 'NoticeWrite',  component : () => import("../views/NoticeWrite")}
-  { path: '/cart',                  name: 'cart',          component: () => import("../views/Cart.vue")            }
+  { path : '/notice/NoticeWrite',   name : 'NoticeWrite',  component : () => import("../views/NoticeWrite")},
+  { path: '/cart',                  name: 'cart',          component: () => import("../views/Cart.vue")}
 
 ]
 
