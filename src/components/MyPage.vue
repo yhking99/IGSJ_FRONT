@@ -6,76 +6,81 @@
 	<table class = "n-table table-row my-info-modify">
 		<tbody>
 			<tr class = "mypageid">
-				<th scope = "row">아이디<label style = "color:red; font-size:15px;">(아이디는 수정이 불가능합니다.)</label></th>
+				<th scope = "row">아이디<label>(아이디는 수정이 불가능합니다.)</label></th>
 				<td>
 					<input type = "text" class = "form-control" id = "id" v-model = "this.memberDTO.userId" onkeyup="this.value=this.value.replace(/[^a-zA-Z][^0-9]/g,'');" maxlength = "20" readonly/>
 				</td>
 			</tr>
 			<tr class = "mypagepwd">
-				<th scope = "row"><label for = "pwd">비밀번호</label></th>
+				<th scope = "row"><label>비밀번호</label></th>
 				<td>
 					<input type = "password" class = "form-control" id = "pwd" v-model = "this.memberDTO.userPwd" maxlength = "20" placeholder = "비밀번호 입력"/>
 				</td>
 			</tr>
 			<tr class = "mypagerepwd">
-				<th scope = "row"><label for = "repwd">비밀번호 확인</label></th>
+				<th scope = "row"><label>비밀번호 확인</label></th>
 				<td>
 					<input type = "password" class = "form-control" id = "repwd" maxlength = "20" placeholder = "비밀번호 확인"/>
 				</td>
 			</tr>
-			<tr class = "mypageboxname">
-				<th scope = "row"><label for = "name">이름</label></th>
+			<tr class = "mypagename">
+				<th scope = "row"><label>이름</label></th>
 				<td>
 					<input type = "text" class = "form-control" id = "name"  v-model = "this.memberDTO.userName" maxlength = "20" placeholder = "이름 입력"/>
 				</td>
 			</tr>
-			<tr class = "mypageboxbirth">
-				<th scope = "row"><label for = "name" class = "col-sm-3 control-label">생년월일</label></th>
+			<tr class = "mypagebirth">
+				<th scope = "row"><label>생년월일</label></th>
 				<td>
 					<input type = "date" class = "form-control" id = "birth"  v-model = "this.memberDTO.userBirth" maxlength = "20" placeholder = "생년월일 입력"/>
 				</td>
 			</tr>
-			<tr class = "mypageboxphone">
-				<th scope = "row"><label for = "name" class = "col-sm-3 control-label">전화번호</label></th>
+			<tr class = "mypagephone">
+				<th scope = "row"><label>전화번호</label></th>
 				<td>
 					<input type = "tel" class = "form-control" id = "phoneNumber"  v-model = "this.memberDTO.userPhoneNumber" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'');" maxlength = "20" placeholder = "'-'를 제외한 전화번호"/>
 				</td>
 			</tr>
 			<tr class = "mypageemail">
-				<th scope = "row"><label for = "email" class = "col-sm-3 control-label">이메일</label></th>
+				<th scope = "row"><label>이메일</label></th>
 				<td>
 					<input type = "email" class = "form-control" id = "email"  v-model = "this.memberDTO.userEmail" maxlength = "100" placeholder = "이메일 입력"/>
 				</td>
 			</tr>
 			<tr class = "mypagepost">
-				<th scope = "row"><label for = "address">우편 번호</label></th>
+				<th scope = "row"><label>우편 번호</label></th>
 				<td>
-					<input type = "text" class = "form-control" id = "zipcode" v-model= "this.memberAddressDTO.postAddress"/>
-					<input type = "button" class = "form-control btn btn-sm btn-danger"  @click = "daumZipCode()" value = "우편번호 검색"/>
-					<!-- 자바스크립트로 api 처리하자 -->
+					<span class="span-post">
+						<input type = "text" class = "form-control" id = "zipcode" v-model= "this.memberAddressDTO.postAddress"/>
+						&emsp;
+						<input type = "button" class = "form-control btn btn-sm btn-dark input-post-search"  @click = "daumZipCode()" value = "우편번호 검색"/>
+						<!-- 자바스크립트로 api 처리하자 -->
+					</span>
 				</td>
 				</tr>
 			<tr class = "mypageadd">
-				<th scope = "row"><label for = "address">주  소</label></th>
+				<th scope = "row"><label>주  소</label></th>
 				<td>
 					<input type = "text" class = "form-control" id = "address_1" v-model = "this.memberAddressDTO.address"/>
 				</td>
 			</tr>
 			<tr class = "myapgedetailadd">
-				<th scope = "row"><label for = "address">상세 주소</label></th>
+				<th scope = "row"><label>상세 주소</label></th>
 				<td>
 					<input type = "text" class = "form-control" id = "address_2" v-model = "this.memberAddressDTO.detailAddress"/>
 				</td>
 			</tr>
+				<!--수정버튼-->
+			<tr class = "mypagebutton">
+				<th scope = "row"></th>
+				<td>
+					<button type="submit" id = "btn-modify" class = "btn btn-sm btn-dark" @click = "editMember(userId)">수정</button>
+					<button type="button" id = "btn-delete" class = "btn btn-sm btn-light" @click="removeMember()">회원탈퇴</button>
+				</td>
+			</tr>
 			</tbody>	
 		</table>
-				<!--수정버튼-->
-			<tr>
-				<button type="submit" id="update-btn" class = "btn btn-sm btn-primary" @click = "editMember(userId)">수정</button>
-				&nbsp;
-				<button type="button" id="withdrawal-btn" class = "btn btn-sm btn-danger" @click="removeMember()">회원탈퇴</button>
-			</tr>
-		    </section>
+	</section>
 </template>
 
 <script>
@@ -174,7 +179,16 @@
 				const deleteYN = confirm("회원 탈퇴를 진행하시겠습니까?");
 				
 				if(deleteYN == true) {
-				
+					if(document.getElementById("pwd").value == "" || document.getElementById("pwd").value == null || document.getElementById("pwd").value.length < 4) {
+						alert("회원정보 수정에는 비밀번호가 필요합니다.")
+						document.getElementById("pwd").focus();
+						return false
+					}
+					if(document.getElementById("pwd").value != document.getElementById("repwd").value) {
+						alert("비밀번호와 비밀번호 확인 입력값이 다릅니다.")
+						document.getElementById("repwd").focus();
+						return false
+					}
 				this.$axios.post(this.$serverUrl + "/member/removeMember", { 
 						userId : this.memberDTO.userId,
 						userPwd : this.memberDTO.userPwd
@@ -248,40 +262,77 @@
 	.mypageheader {
 		display: flex;
     	align-items: center;
-		border-bottom: 3px solid #000000;
-		padding-bottom: 14px;
-		margin-top: 30px;
+		border-bottom: 1px solid lightgray;
+		padding: 10px 20px 10px 20px;
 		line-height: 1.5;
 		position: relative;
 	}
 	.mypageheader h2 {
-		font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+		color:#000000;
+		font-weight: bold;
 		font-size: 20px;
+		text-transform: uppercase;
+		padding: 4px;
+		margin-bottom: 0.5px;
 	}
-	.n-table .mypage th {
+	/* .n-table th {
 		text-align: left;
     	font-weight: normal;
     	vertical-align: top;
-	}
+	} */
 	.n-table tr th  {
 		height: auto;
-		padding: 15px 0;
+		padding: 10px 10px;
 		box-sizing: border-box;
-		border-top: 1px solid #f1f1f1;
+		border-top: 1px solid lightgray;
 		border-bottom: none;
 		font-size: 14px;
+		background-color: #f9f9f9;
 	}
 	.n-table tr td {
 		width: 1000px;
 		height: auto;
-		padding: 15px 0;
+		padding: 10px 10px;
 		box-sizing: border-box;
-		border-top: 1px solid #f1f1f1;
+		border-top: 1px solid lightgray;
 		border-bottom: none;
 		font-size: 14px;
 	}
-	.container input {
+	.container .mypageadd input,  .container .myapgedetailadd input, .container .mypageemail input {
 		border: 1 solid black;
 		width: 500px;
 	}
+
+	.container .mypagepost input, .container .mypageid input, .container .mypagepwd input, .container .mypagerepwd input, .container .mypagebirth input, .container .mypagename input, .container .mypagephone input{
+		display: inline;
+		border: 1 solid black;
+		width: 200px;
+	}
+
+	.n-table .mypageid label{
+		color:red; 
+		font-size:8px;
+		width: 250px;
+	}
+	.container {
+		padding: 0;
+	}
+	#btn-modify {
+    width: 15%;
+	margin-top: 20px;
+    margin-bottom : 10px;
+    margin-left : 30px;
+}
+	#btn-delete {
+    width : 15%;
+	margin-top: 20px;
+    margin-bottom : 10px;
+    margin-left : 30px;
+}
+.span-post {
+	display: inline-flex;
+	align-self: center;
+}
+
+
 </style>
