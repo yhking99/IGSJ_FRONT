@@ -79,7 +79,7 @@ export default {
   methods: {
     cancel() {
       if (confirm('작성을 취소하고 목록으로 이동하시겠습니까?')) {
-        router.go(-1);
+        history.back()
       }
     },
 

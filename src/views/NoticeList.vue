@@ -64,12 +64,11 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="notice-write" v-if="this.$store.state.userInfo.userVerify == 128">
         <router-link to="/notice/NoticeWrite">
-          <span>공지사항작성</span>
+          <button type="button">공지사항작성</button>
         </router-link>
       </div>
-
     </div>
 
   </div>
@@ -265,9 +264,32 @@ th {
   float: right;
 }
 
+.notice-write {
+  display: flex;
+  justify-content: right;
+}
+
+.notice-write>a>button {
+  /* router-link는 a태그로 지정해주어야 함 */
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+}
+
+.notice-write>a>button:hover {
+  background-color: #0a3bffbe;
+  transition: background 0.3s ease-in-out;
+}
+
 .paging-btn {
   width: auto;
   min-width: 33px;
   padding: 0 2px;
+}
+
+.notice-write button {
+  float: right;
+  background-color: #000;
+  color: #f1f1f1;
 }
 </style>
