@@ -10,3 +10,6 @@ const app = createApp(App)
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.$serverUrl = 'http://localhost:8086'
 app.use(store).use(router).use(mitt).use(mixin).mount('#app')
+
+window.Kakao.init("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+window.console.log('kakao : '+Kakao.isInitialized())
