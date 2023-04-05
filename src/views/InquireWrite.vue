@@ -44,25 +44,21 @@
               <tr>
                 <th scope="row">제품번호</th>
                 <td class="order-check">
-                  <input type="text" name="ord-no" class="n-input" value="16482" readonly>
+                  <input type="text" name="ord-no" class="n-input" v-model="pno" readonly>
                 </td>
               </tr>
               <tr>
-                <th scope="row">문의번호</th>
-                <td class="order-check">
-                  <input type="text" name="ord-no" class="n-input" value="1" readonly>
-                </td>
               </tr>
               <tr class="n-name-row">
                 <th scope="row">작성일자</th>
                 <td>
-                  <input type="text" class="n-input" value="2023-03-29" readonly>
+                  <input type="text" class="n-input" v-model="inquireRegDate" readonly>
                 </td>
               </tr>
               <tr>
                 <th scope="row">작성자</th>
                 <td>
-                  <input type="text" class="n-input" value="이젠" readonly>
+                  <input type="text" class="n-input" v-model="userId" readonly>
                 </td>
               </tr>
               <tr>
@@ -83,8 +79,8 @@
       </div>
 
       <div class="n-btn-group">
-        <button @click="cancel();" class="n-btn btn-lighter">취소</button>
-        <button @click="qna_add();" class="n-btn btn-accent">작성하기</button>
+        <button type="button" @click="cancel();" class="n-btn btn-lighter">취소</button>
+        <button type="button" @click="qna_add();" class="n-btn btn-accent">작성하기</button>
       </div>
       </form>
     </div>
@@ -120,6 +116,14 @@ th, td {
 
 body {
     margin: 0;
+}
+
+hr {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
 }
 
 
