@@ -13,6 +13,7 @@
       <thead>
         <tr>
           <th scope="col">번호</th>
+          <th scope="col">작성자</th>
           <th scope="col">제목</th>
           <th scope="col">내용</th>
           <th scope="col">작성일자</th>
@@ -20,8 +21,9 @@
       </thead>
       <tbody>
         <tr :key="i" v-for="(inquire, i) in inquireList">
-          <router-link to="/inquire/InquireView">
+          <router-link to="/inquire/InquireList">
             <td>{{ inquire.inquireNum }}</td>
+            <td>{{ inquire.userId }}</td>
             <td>{{ inquire.inquireTitle }}</td>
             <td>{{ inquire.inquireContent }}</td>
             <td>{{ inquire.inquireReg_date }}</td>
@@ -44,6 +46,7 @@ export default {
     return {
       inquireList: {
         inquireNum: '',
+        userId: '',
         inquireTitle: '',
         inquireContent: '',
         inquireRegDate: ''
