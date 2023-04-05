@@ -10,6 +10,7 @@ const routes = [
   { path: '/product/detail/:pno',   name: 'product',       component: () => import("../views/ProductDetail.vue") },
   { path: '/notice/NoticeList',     name: 'NoticeList',    component: () => import("../views/NoticeList.vue") },
   { path: '/notice/NoticeView/:bno', name: 'NoticeView',   component: () => import('../views/NoticeView.vue') },
+  { path: '/notice/NoticeModifyPage/:bno',name: 'NoticeModify',   component: () => import('../views/NoticeModify.vue') },
   { path: '/inquire/InquireList',   name: 'InquireList',   component: () => import('../views/InquireList.vue') },
   { path: '/inquire/InquireWrite',  name: 'InquireWrite',  component: () => import('../views/InquireWrite.vue') },
   { path: '/inquire/InquireView',   name: 'InquireView',   component: () => import('../views/InquireView.vue') },
