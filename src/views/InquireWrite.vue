@@ -118,6 +118,14 @@ body {
     margin: 0;
 }
 
+hr {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
 
 .board-box {
   border-bottom: 1px solid #ddd;
