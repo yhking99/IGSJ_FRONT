@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainComp from '../views/MainComp.vue'
 
 const routes = [
+
   { path: '/',                      name: 'home',          component: MainComp },
   { path: '/login',                 name: 'login',         component: () => import("../views/LoginView.vue") },
   { path: '/categories/item/:cno',  name: 'item',          component: () => import("../views/ItemsView.vue") },
