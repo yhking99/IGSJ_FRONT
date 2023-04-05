@@ -120,18 +120,28 @@
         Info
         <span class="korSub">&nbsp;<font size="2">정보</font></span>
       </h4>
-      <img :src="this.productInfo.image" :alt="this.productInfo.pno" style="width: 100%;">
+      <ck-editor v-model="productInfo.product_description" :editor="editor" :config="editorConfig" :disabled="editorDisabled"/>
       <!-- 상품 정보 이미지는 추후에 작업 예정 -->
     </div>
   </div>
 </template>
 
 <script>
-import {Tooltip} from 'bootstrap'
-
+import {Tooltip} from 'bootstrap';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { readonly } from 'vue';
+  
 export default {
+  components: {'ck-editor': CKEditor.component },
   data() {
     return {
+      editor: ClassicEditor, 
+                editorDisabled: true,
+                editorData: '',
+                editorConfig: {
+                  toolbar:[],
+                },
       pno:'',
       userId: '',
       midLvCatArr: {},
