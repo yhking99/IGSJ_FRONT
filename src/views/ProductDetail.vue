@@ -106,7 +106,9 @@
             </div>
             <div class="btn-box">
               <button class="purchase"><b>바로구매</b></button>
-              <button class="cart"><b>장바구니</b></button>
+              <router-link :to="{name: 'cart', params: {pno : this.$route.params.pno}}">
+              <button @click="goCart()">장바구니</button>
+                </router-link>
             </div>
           </div>  
         </div>
@@ -118,19 +120,30 @@
         Info
         <span class="korSub">&nbsp;<font size="2">정보</font></span>
       </h4>
-      <img :src="this.productInfo.image" :alt="this.productInfo.pno" style="width: 100%;">
+      <ck-editor v-model="productInfo.product_description" :editor="editor" :config="editorConfig" :disabled="editorDisabled"/>
       <!-- 상품 정보 이미지는 추후에 작업 예정 -->
     </div>
   </div>
 </template>
 
 <script>
-import {Tooltip} from 'bootstrap'
-
+import {Tooltip} from 'bootstrap';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { readonly } from 'vue';
+  
 export default {
+  components: {'ck-editor': CKEditor.component },
   data() {
     return {
+      editor: ClassicEditor, 
+                editorDisabled: true,
+                editorData: '',
+                editorConfig: {
+                  toolbar:[],
+                },
       pno:'',
+      userId: '',
       midLvCatArr: {},
       productInfo: {},
       size: '',
@@ -180,6 +193,20 @@ export default {
       .catch((err) => {
         if (err.message.indexOf('Network Error') > -1) {
           alert('Error')
+        }
+      })
+    },
+    goCart() {
+      this.$axios.post(this.$serverUrl + "/cart/cartWrite", {
+          cartNum : this.cartNum,
+          userId : this.$store.state.userInfo.userId,
+          pno : this.pno,
+          productCnt : this.count,
+      }).then((res) => {
+        console.log(res.data)
+      }).catch((err) => {
+        if (err.message.indexOf('Network Error') > -1) {
+          alert('장바구니 이동 오류')
         }
       })
     },

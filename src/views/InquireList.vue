@@ -5,26 +5,31 @@
     </header>
     <table class="n-table table-col">
       <colgroup>
-      <col style="width:8%">
-      <col style="width:12.6%">
-      <col style="width:*">
-      <col style="width:20%">
+        <col style="width: 5%" />
+        <col style="width: 8%" />
+        <col style="width: 10%" />
+        <col style="width: *" />
+        <col style="width: 20%" />
       </colgroup>
       <thead>
         <tr>
           <th scope="col">번호</th>
+          <th scope="col">작성자</th>
+          <th scope="col">제품번호</th>
           <th scope="col">제목</th>
           <th scope="col">내용</th>
           <th scope="col">작성일자</th>
         </tr>
       </thead>
       <tbody>
-        <tr :key="i" v-for="(inquire, i) in inquireList">
-          <router-link to="/inquire/InquireView">
+        <tr :key="i" v-for="(inquire, i) in inpList">
+          <router-link to="/inquire/InquireList">
             <td>{{ inquire.inquireNum }}</td>
+            <td>{{ inquire.userId }}</td>
+            <td>{{ inquire.pno }}</td>
             <td>{{ inquire.inquireTitle }}</td>
             <td>{{ inquire.inquireContent }}</td>
-            <td>{{ inquire.inquireReg_date }}</td>
+            <td>{{ inquire.inquireRegDate }}</td>
           </router-link>
         </tr>
       </tbody>
@@ -38,36 +43,40 @@
   </div>
 </template>
 
-<script scoped>
+<script>
 export default {
   data() {
     return {
-      inquireList: {
-        inquireNum: '',
-        inquireTitle: '',
-        inquireContent: '',
-        inquireRegDate: ''
-      }
+      inpList: {
+        userId: "", // 유저아이디
+        inquireNum: "", // 제품문의번
+        pno: "", // 제품번호
+        inquireTitle: "", // 문의제목
+        inquireContent: "", // 문의내용
+        inquireRegDate: "", // 문의날짜
+      },
     };
   },
   created() {
-    this.InquireList();
+    this.inquireList();
   },
   methods: {
-    InquireList() {
-      this.$axios.get(this.$serverUrl + '/inquire/InquireList')
-      then((res) => {
-        console.log(res.data)
-        this.inquireList = res.data;
-      }).catch((err) => {
-        console.log(err)
-      })
-    }
+    inquireList() {
+      this.$axios
+        .get(this.$serverUrl + "/inquire/InquireList")
+        .then((res) => {
+          console.log(res.data);
+          this.inpList = res.data;
+        })
+        .catch((err) => {
+          this.error = err.message;
+        });
+    },
   },
-}
+};
 </script>
 
-<style>
+<style scope>
 .inquire-box {
   width: 100%;
   min-height: 600px;
