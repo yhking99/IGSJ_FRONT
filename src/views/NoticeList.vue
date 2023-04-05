@@ -42,7 +42,6 @@
         </thead>
         <tbody>
           <tr :key="i" v-for="(board, i) in noticeList">
-
             <router-link :to="{ name: 'NoticeView', params: { bno: board.bno } }">
               <!-- name은 index.js에 지정된 경로 이름을 나타냄, params는 지정된 경로에 보내줄 값을 나타냄 -->
 
