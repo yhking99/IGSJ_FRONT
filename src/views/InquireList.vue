@@ -7,15 +7,14 @@
       <colgroup>
         <col style="width: 5%" />
         <col style="width: 8%" />
-        <col style="width: 10%" />
+        <col style="width: 30%" />
         <col style="width: *" />
-        <col style="width: 20%" />
+        <col style="width: 10%" />
       </colgroup>
       <thead>
         <tr>
           <th scope="col">번호</th>
           <th scope="col">작성자</th>
-          <th scope="col">제품번호</th>
           <th scope="col">제목</th>
           <th scope="col">내용</th>
           <th scope="col">작성일자</th>
@@ -23,13 +22,13 @@
       </thead>
       <tbody>
         <tr :key="i" v-for="(inquire, i) in inpList">
-          <router-link to="/inquire/InquireList">
+          <router-link  :to="{ name: 'InquireView', params: { inquireNum: inquire.inquireNum } }"
+          v-if="inquire.userId == this.$store.state.userInfo.userId">
             <td>{{ inquire.inquireNum }}</td>
             <td>{{ inquire.userId }}</td>
-            <td>{{ inquire.pno }}</td>
             <td>{{ inquire.inquireTitle }}</td>
             <td>{{ inquire.inquireContent }}</td>
-            <td>{{ inquire.inquireRegDate }}</td>
+            <td>{{ convertTime(inquire.inquireRegDate) }}</td>
           </router-link>
         </tr>
       </tbody>
@@ -72,6 +71,18 @@ export default {
           this.error = err.message;
         });
     },
+    // 시간
+    convertTime(noticeTime) {
+      var time = new Date(noticeTime).getTime();
+      var date = new Date(time);
+      let noticeYear = date.getFullYear();
+      let noticeMonth = date.getMonth() + 1;
+      let noticeDate = date.getDate();
+
+      let fullDate = noticeYear + "년 - " + noticeMonth + "월 - " + noticeDate + "일";
+
+      return fullDate;
+    }
   },
 };
 </script>
