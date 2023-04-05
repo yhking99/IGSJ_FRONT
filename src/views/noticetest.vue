@@ -131,23 +131,18 @@ export default {
 body {
   margin: 0;
 }
-
 hr {
   margin: 0;
 }
-
 ul {
   padding: 0;
   list-style: none;
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
 }
-
-td,
-th {
+td,th {
   text-align: left;
 }
 
@@ -157,12 +152,10 @@ th {
   border-bottom: 1px solid #ddd;
   min-height: 600px;
 }
-
 /* cs center 시작 */
 .cs-center-tap {
   width: 100%;
 }
-
 .title-pg {
   margin: 0;
   padding: 20px;
@@ -172,7 +165,6 @@ th {
   display: table;
   width: 100%;
 }
-
 .cs-center-tap ul li {
   display: table-cell;
   width: 33.3%;
@@ -181,25 +173,20 @@ th {
   border-left: 1px solid #ddd;
   padding: 20px;
 }
-
 .cs-center-tap ul li:first-child {
   border-left: none;
 }
-
 .cs-tap {
   cursor: pointer;
 }
-
 .cs-tap:hover {
   background: #f1f1f1;
   transition: color 0.3s ease-in-out;
 }
-
 .tap-t {
   display: block;
   font-size: 15px;
 }
-
 .tap-title {
   color: #000;
   font-size: 20px;
@@ -211,7 +198,6 @@ th {
   text-decoration: none;
   color: #000;
 }
-
 /* cs center 끝 */
 
 .board-contents {
@@ -220,7 +206,6 @@ th {
   border-bottom: 1px solid #ddd;
   padding: 30px;
 }
-
 .notice-table th {
   height: 52px;
   border-top: 3px solid #000;
@@ -230,7 +215,6 @@ th {
   text-align: center;
   padding: 0;
 }
-
 .notice-table td {
   height: 52px;
   border-bottom: 1px solid #000000;
@@ -239,13 +223,11 @@ th {
   font-weight: normal;
   text-align: center;
 }
-
 .notice-table a {
   text-decoration: none;
   color: #000;
   display: contents;
 }
-
 .notice-table a:hover {
   color: #0a3bffbe;
   transition: color 0.3s ease-in-out;
@@ -256,18 +238,16 @@ th {
   height: 42px;
   line-height: 42px;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  
 }
-
 .pagination {
   width: auto;
   float: right;
 }
-
 .paging-btn {
   width: auto;
   min-width: 33px;
   padding: 0 2px;
 }
+
 </style>

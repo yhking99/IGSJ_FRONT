@@ -1,5 +1,5 @@
 <template>
-	<div class="board-box">
+  <div class="board-box">
     <div class="cs-center-tap">
       <h2 class="title-pg">CS center</h2>
       <hr>
@@ -22,87 +22,93 @@
         </li>
       </ul>
     </div>
-
     <div class="board-contents">
-      <form method="post" action="">
-
-      <h4 class="title_cs font-mss">1:1 Q&A</h4>
-			<ul class="n-info-txt">
-				<li class="text-danger">제품 사용, 오염, 전용 박스 손상, 라벨 제거, 사은품 및 부속 사용/분실 시, 환불이 불가능 합니다.</li>
-				<li>주문내역/환불은 <router-link to="/#" class="button">마이페이지 ▶ 주문내역</router-link>에서 확인하실 수 있습니다.</li>
-				<li>1:1문의 처리 내역은 <router-link to="/InquireList" class="button">나의 문의내역</router-link>에서 확인하실 수 있습니다.</li>
-				<li>최대한 자세하게 남겨주실수록 빠르고 정확한 답변이 가능합니다.</li>
-			</ul>
-
       <div class="section_form">
         <div class="area">
           <header class="n-section-title">
-            <h2 class="tit">문의 작성</h2>
+            <h2 class="tit">{{ this.boardInfo.bno }} 번 공지사항</h2>
           </header>
           <table class="n-table table-row">
             <tbody>
               <tr>
-                <th scope="row">제품번호</th>
-                <td class="order-check">
-                  <input type="text" name="ord-no" class="n-input" v-model="pno" readonly>
-                </td>
-              </tr>
-              <tr>
-              </tr>
-              <tr class="n-name-row">
-                <th scope="row">작성일자</th>
-                <td>
-                  <input type="text" class="n-input" v-model="inquireRegDate" readonly>
-                </td>
-              </tr>
-              <tr>
                 <th scope="row">작성자</th>
                 <td>
-                  <input type="text" class="n-input" v-model="userId" readonly>
+                  <input type="text" class="n-input" v-model="this.boardInfo.writer">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">작성날짜</th>
+                <td>
+                  <input type="text" class="n-input" v-model="this.boardInfo.reg_date">
                 </td>
               </tr>
               <tr>
                 <th scope="row">제목</th>
                 <td>
-                  <input type="text" class="n-input" name="subject" value="" placeholder="제목을 입력해주세요" >
+                  <input type="text" class="n-input" name="subject" v-model="this.boardInfo.title">
                 </td>
               </tr>
               <tr class="n-same-row">
-                <th scope="row">문의내용</th>
+                <th scope="row">공지내용</th>
                 <td>
-                  <textarea name="qa_msg" cols="100" rows="100" class="textarea-input" placeholder="고객님들의 불편사항 개선을 위해 최선을 다하겠습니다."></textarea>
+                  <textarea name="qa_msg" cols="100" rows="100"
+                    class="textarea-input">{{ this.boardInfo.content }}</textarea>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
-      <div class="n-btn-group">
-        <button type="button" @click="cancel();" class="n-btn btn-lighter">취소</button>
-        <button type="button" @click="qna_add();" class="n-btn btn-accent">작성하기</button>
-      </div>
-      </form>
+    </div>
+    <div class="btn-no">
+      <router-link to="/notice/NoticeList">
+        <button class="n-btn">목록으로</button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			message: ""
-		};
-	},
+  data() {
+    return {
+      bno: '',
+      writer: '',
+      title: '',
+      content: '',
+      reg_date: this.convertTime(),
+      boardInfo: {}
+    }
+  },
+  created() {
+    this.bno = this.$route.params.bno
+    this.getPostNum(this.bno)
+  },
   methods: {
-    cancel() {
-    if(confirm('취소하시겠습니까?')){
-      history.back();
-      }
+    getPostNum(bno) {
+      this.$axios.get(this.$serverUrl + '/notice/NoticeView?bno=' + bno)
+        .then((res) => {
+          this.boardInfo = res.data
+          console.log(this.boardInfo)
+        }).catch((err) => {
+          if (err.message.indexOf('Network Error') > -1) {
+            alert('Error')
+          }
+        })
     },
+    convertTime(noticeTime) {
+      var time = new Date(noticeTime).getTime();
+      var date = new Date(time);
+      let noticeYear = date.getFullYear();
+      let noticeMonth = date.getMonth() + 1;
+      let noticeDate = date.getDate();
 
+      let fullDate = noticeYear + " - " + noticeMonth + " - " + noticeDate;
+
+      return fullDate;
+    }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -117,7 +123,6 @@ th, td {
 body {
     margin: 0;
 }
-
 
 .board-box {
   border-bottom: 1px solid #ddd;
@@ -171,31 +176,6 @@ body {
 .board-contents {
   border-bottom: 1px solid #ddd;
   padding: 20px;
-}
-
-.n-info-txt > li:before {
-  content: "▶";
-  position: inherit;
-  margin-right: 5px;
-}
-.title_cs {
-  font-size: 18px;
-  font-weight: 600;
-  color: #000;
-  display: inline-block;
-}
-.n-info-txt {
-  line-height: 1.5;
-  font-size: 14px;
-  padding-top: 20px;
-}
-.n-info-txt > li:first-of-type {
-  margin-top: 0;
-}
-.n-info-txt > li {
-  margin-top: 5px;
-  position: relative;
-  line-height: 1.5;
 }
 
 .area {
@@ -270,13 +250,6 @@ body {
     text-align: left;
 }
 
-.n-btn-group {
-    min-height: 32px;
-    text-align: center;
-    padding-top: 20px;
-    clear: both;
-    position: relative;
-}
 .n-btn {
     display: inline-block;
     min-width: 100px;
@@ -308,5 +281,9 @@ body {
   border: none;
   background-color: #0a3bffbe;
   transition: background 0.3s ease-in-out;
+}
+
+input {
+  outline: none;
 }
 </style>
