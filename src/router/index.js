@@ -23,7 +23,7 @@ const routes = [
   { path: '/joinmember',            name: 'joinmember',    component: () => import("../components/JoinMember.vue") },
   { path: '/mypage',                name: 'mypage',        component: () => import("../components/MyPage.vue")     },
   { path: '/passverify',            name: 'passverify',    component: () => import("../components/PassVerify.vue") },
-  { path: '/cart',                  name: 'cart',          component: () => import("../views/Cart.vue")            }
+  { path: '/cart',             name: 'cart',          component: () => import("../views/Cart.vue")            }
 ]
 
 const router = createRouter({

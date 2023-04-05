@@ -106,7 +106,9 @@
             </div>
             <div class="btn-box">
               <button class="purchase"><b>바로구매</b></button>
-              <button class="cart"><b>장바구니</b></button>
+              <router-link :to="{name: 'cart', params: {pno : this.$route.params.pno}}">
+              <button @click="goCart()">장바구니</button>
+                </router-link>
             </div>
           </div>  
         </div>
@@ -131,6 +133,7 @@ export default {
   data() {
     return {
       pno:'',
+      userId: '',
       midLvCatArr: {},
       productInfo: {},
       size: '',
@@ -179,6 +182,20 @@ export default {
       }).catch((err) => {
         if (err.message.indexOf('Network Error') > -1) {
           alert('Category Error')
+        }
+      })
+    },
+    goCart() {
+      this.$axios.post(this.$serverUrl + "/cart/cartWrite", {
+          cartNum : this.cartNum,
+          userId : this.$store.state.userInfo.userId,
+          pno : this.pno,
+          productCnt : this.count,
+      }).then((res) => {
+        console.log(res.data)
+      }).catch((err) => {
+        if (err.message.indexOf('Network Error') > -1) {
+          alert('장바구니 이동 오류')
         }
       })
     },
