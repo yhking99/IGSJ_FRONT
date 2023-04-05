@@ -119,7 +119,7 @@ export default {
       let noticeMonth = date.getMonth() + 1;
       let noticeDate = date.getDate();
 
-      let fullDate = noticeYear + "-" + noticeMonth + "-" + noticeDate;
+      let fullDate = noticeYear + "년 - " + noticeMonth + "월 - " + noticeDate + "일";
 
       return fullDate;
     }
