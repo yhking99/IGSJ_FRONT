@@ -39,7 +39,7 @@
               <tr>
                 <th scope="row">작성날짜</th>
                 <td>
-                  <input type="text" class="n-input" v-model="this.boardInfo.reg_date" readonly>
+                  <input id="reg_date" type="text" class="n-input" v-model="this.boardInfo.reg_date" readonly>
                 </td>
               </tr>
               <tr>
@@ -51,8 +51,8 @@
               <tr class="n-same-row">
                 <th scope="row">공지내용</th>
                 <td>
-                  <textarea name="qa_msg" cols="100" rows="100"
-                    class="textarea-input" readonly>{{ this.boardInfo.content }}</textarea>
+                  <textarea name="qa_msg" cols="100" rows="100" class="textarea-input"
+                    readonly>{{ this.boardInfo.content }}</textarea>
                 </td>
               </tr>
             </tbody>
@@ -64,8 +64,13 @@
       <router-link to="/notice/NoticeList">
         <button class="n-btn">목록으로</button>
       </router-link>
-      <router-link to="/notice/NoticeList">
-        <button class="n-btn">수정하기</button>
+      <router-link :to="{
+        name: 'NoticeModify',
+        params: {
+          bno: this.boardInfo.bno
+        }
+      }">
+        <button type="button" class="n-btn-modi">수정하기</button>
       </router-link>
     </div>
   </div>
@@ -75,12 +80,13 @@
 export default {
   data() {
     return {
-      bno: '',
-      writer: '',
-      title: '',
-      content: '',
-      reg_date: this.convertTime(),
-      boardInfo: {}
+      boardInfo: {
+        bno: '',
+        writer: '',
+        title: '',
+        content: '',
+        reg_date: ''
+      }
     }
   },
   created() {
@@ -91,8 +97,10 @@ export default {
     getPostNum(bno) {
       this.$axios.get(this.$serverUrl + '/notice/NoticeView?bno=' + bno)
         .then((res) => {
+
           this.boardInfo = res.data
-          console.log(this.boardInfo)
+          this.boardInfo.reg_date = this.convertTime(this.boardInfo.reg_date)
+
         }).catch((err) => {
           if (err.message.indexOf('Network Error') > -1) {
             alert('Error')
@@ -106,7 +114,7 @@ export default {
       let noticeMonth = date.getMonth() + 1;
       let noticeDate = date.getDate();
 
-      let fullDate = noticeYear + " - " + noticeMonth + " - " + noticeDate;
+      let fullDate = noticeYear + "년 - " + noticeMonth + "월 - " + noticeDate + "일";
 
       return fullDate;
     }
@@ -115,23 +123,25 @@ export default {
 </script>
 
 <style scoped>
-th, td {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: top;
-    background: transparent;
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: top;
+  background: transparent;
 }
+
 ul {
   padding: 0;
 }
 
-hr{
+hr {
   margin: 0;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .board-box {
@@ -139,9 +149,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .cs-center-tap {
   width: 100%;
 }
+
 .title-pg {
   margin: 0;
   padding: 20px;
@@ -151,6 +163,7 @@ body {
   display: table;
   width: 100%;
 }
+
 .cs-center-tap ul li {
   display: table-cell;
   width: 33.3%;
@@ -159,17 +172,21 @@ body {
   border-left: 1px solid #ddd;
   padding: 20px;
 }
+
 .cs-center-tap ul li:first-child {
   border-left: none;
 }
+
 .cs-tap {
   cursor: pointer;
 }
+
 .tap-t {
   display: block;
   font-size: 15px;
   color: #495057;
 }
+
 .tap-title {
   color: #000;
   font-size: 20px;
@@ -189,6 +206,7 @@ body {
 .area {
   display: table-cell;
 }
+
 .n-section-title {
   border-bottom: 3px solid #000000;
   margin-top: 48px;
@@ -196,6 +214,7 @@ body {
   font-size: 14px;
   position: relative;
 }
+
 .n-table {
   width: 100%;
   line-height: 1.5;
@@ -204,15 +223,17 @@ body {
   table-layout: fixed;
   border-bottom: 1px solid #ccc;
 }
-.n-table.table-row th, .n-table.table-row td {
-    height: auto;
-    padding: 15px 0;
-    box-sizing: border-box;
-    border-top: 1px solid #f1f1f1;
-    border-bottom: none;
-    font-size: 15px;
-    font-weight: 600;
-    text-align: left;
+
+.n-table.table-row th,
+.n-table.table-row td {
+  height: auto;
+  padding: 15px 0;
+  box-sizing: border-box;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: none;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
 }
 
 .n-input {
@@ -227,9 +248,11 @@ body {
   transition: border 0.2s ease-in-out;
   pointer-events: none;
 }
-.n-input:focus{
+
+.n-input:focus {
   outline: none;
 }
+
 .textarea-input {
   width: 100%;
   height: 200px;
@@ -244,37 +267,55 @@ body {
 }
 
 .n-table th {
-    width: 170px;
-    padding-top: 22px;
-    padding-right: 20px;
+  width: 170px;
+  padding-top: 22px;
+  padding-right: 20px;
 }
+
 .n-table.table-row th {
-    text-align: left;
-    font-weight: normal;
-    vertical-align: top;
+  text-align: left;
+  font-weight: normal;
+  vertical-align: top;
 }
-.n-table.table-row th, .n-table.table-row td {
-    height: auto;
-    padding: 15px 0;
-    box-sizing: border-box;
-    border-top: 1px solid #f1f1f1;
-    border-bottom: none;
-    font-size: 14px;
-    text-align: left;
+
+.n-table.table-row th,
+.n-table.table-row td {
+  height: auto;
+  padding: 15px 0;
+  box-sizing: border-box;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: none;
+  font-size: 14px;
+  text-align: left;
 }
 
 .n-btn {
-    display: inline-block;
-    min-width: 100px;
-    height: 40px;
-    line-height: 36px;
-    color: #ffffff;
-    box-sizing: border-box;
-    padding: 2px 8px 0 8px;
-    font-size: 14px;
-    text-align: center;
-    cursor: pointer;
-    vertical-align: middle;
+  display: inline-block;
+  min-width: 100px;
+  height: 40px;
+  line-height: 36px;
+  color: #ffffff;
+  box-sizing: border-box;
+  padding: 2px 8px 0 8px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+
+}
+
+.n-btn-modi {
+  display: inline-block;
+  min-width: 100px;
+  height: 40px;
+  line-height: 36px;
+  color: #000000;
+  box-sizing: border-box;
+  padding: 2px 8px 0 8px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
 
 }
 
@@ -282,16 +323,28 @@ body {
   border: none;
   background-color: #000000;
 }
+
 .n-btn:hover {
   border: none;
   background-color: #0a3bffbe;
   transition: background 0.3s ease-in-out;
 }
 
-.btn-no{
+.n-btn-modi {
+  border: none;
+  background-color: #f1f1f1;
+}
+
+.n-btn-modi:hover {
+  border: none;
+  color: #f1f1f1;
+  background-color: #0a3bffbe;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-no {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
 }
-
 </style>
