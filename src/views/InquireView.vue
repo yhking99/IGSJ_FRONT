@@ -42,26 +42,31 @@
           </table>
 
           <!-- 답글내용 -->
-          <h4 class="tit">{{ this.inquireInfo.inquireNum }}.번 문의 답변내역</h4>
-          <table class="n-table table-row">
-            <tbody>
-              <tr class="n-same-row">
-                <th scope="row">문의내용</th>
-                <td>
-                  <textarea name="qa_msg" cols="100" rows="100" class="textarea-input"
+          <div v-if="this.answerInfo.ansContent != undefined">
+            <h4 class="tit">{{ this.inquireInfo.inquireNum }}.번 문의 답변내역</h4>
+            <table class="n-table table-row">
+              <tbody>
+                <tr class="n-same-row">
+                  <th scope="row">문의내용</th>
+                  <td>
+                    <textarea name="qa_msg" cols="100" rows="100" class="textarea-input"
                     readonly>{{ answerInfo.ansContent }}</textarea>
-                </td>
-              </tr>
-              <tr>
+                  </td>
+                </tr>
+                <tr>
                 <th scope="row">작성날짜</th>
                 <td>
                   <span id="reg_date" type="text" class="n-input" readonly>
                     {{ convertTime(answerInfo.ansRegDate) }}
                   </span>
                 </td>
-              </tr>
-            </tbody>
-          </table>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-else>
+            <h2>답변 내역이 없습니다.</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -135,6 +140,7 @@ export default {
 
         .then((res) => {
           this.answerInfo = res.data;
+          console.log(this.answerInfo.ansContent)
 
         })
         .catch((err) => {
