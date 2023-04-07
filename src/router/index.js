@@ -12,6 +12,7 @@ const routes = [
   { path: '/notice/NoticeView/:bno', name: 'NoticeView',   component: () => import('../views/NoticeView.vue') },
   { path: '/notice/NoticeModifyPage/:bno',name: 'NoticeModify',   component: () => import('../views/NoticeModify.vue') },
   { path: '/inquire/InquireList',   name: 'InquireList',   component: () => import('../views/InquireList.vue') },
+  { path: '/answer/AnswerWrite:inquireNum',   name: 'AnswerWrite',   component: () => import('../views/AnswerWrite.vue') },
   { path: '/inquire/InquireWrite',  name: 'InquireWrite',  component: () => import('../views/InquireWrite.vue') },
   { path: '/inquire/InquireView/:inquireNum',   name: 'InquireView',   component: () => import('../views/InquireView.vue') },
   { path: '/inquire/InquireModify/:inquireNum', name: 'InquireModify', component: () => import('../views/InquireModify.vue') },
