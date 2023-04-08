@@ -59,7 +59,7 @@
         <div class="order-button">
           <button class="order" @click = "$router.push('/orderPage')">주문하기</button>
         </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -72,7 +72,6 @@
     },
     created() {
       this.cartInfo(this.$store.state.userInfo.userId)
-      this.$store.commit('setUrl', window.location.href)
     },
     computed: {
       //전체상품 수량가격
