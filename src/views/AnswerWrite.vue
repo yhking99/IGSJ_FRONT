@@ -126,7 +126,7 @@ export default {
             location.href = "/inquire/InquireView/" + this.inquireInfo.inquireNum;
 
           } else {
-            alert("답변 작성이 실패하였습니다.");
+            alert("이미 답변이 달려있는 경우에는 추가답변이 불가합니다.\n문의를 새로 작성해주세요.");
 
             return false;
           }
