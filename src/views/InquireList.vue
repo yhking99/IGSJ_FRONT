@@ -5,9 +5,9 @@
     </header>
     <table class="n-table table-col">
       <colgroup>
-        <col style="width: 5%" />
         <col style="width: 8%" />
         <col style="width: 10%" />
+        <col style="width: 20%" />
         <col style="width: *" />
         <col style="width: 20%" />
       </colgroup>
@@ -15,7 +15,6 @@
         <tr>
           <th scope="col">번호</th>
           <th scope="col">작성자</th>
-          <th scope="col">제품번호</th>
           <th scope="col">제목</th>
           <th scope="col">내용</th>
           <th scope="col">작성일자</th>
@@ -23,19 +22,18 @@
       </thead>
       <tbody>
         <tr :key="i" v-for="(inquire, i) in inpList">
-          <router-link to="/inquire/InquireList">
+          <router-link :to="{ name: 'InquireView', params: { inquireNum: inquire.inquireNum } }"
+            v-if="inquire.userId == this.$store.state.userInfo.userId">
             <td>{{ inquire.inquireNum }}</td>
             <td>{{ inquire.userId }}</td>
-            <td>{{ inquire.pno }}</td>
             <td>{{ inquire.inquireTitle }}</td>
             <td>{{ inquire.inquireContent }}</td>
-            <td>{{ inquire.inquireRegDate }}</td>
+            <td>{{ convertTime(inquire.inquireRegDate) }}</td>
           </router-link>
         </tr>
       </tbody>
     </table>
-
-    <div class="n-btn-group">
+    <div class="btn-gr">
       <router-link to="/inquire/InquireWrite">
         <button class="n-btn">문의하기</button>
       </router-link>
@@ -55,6 +53,7 @@ export default {
         inquireContent: "", // 문의내용
         inquireRegDate: "", // 문의날짜
       },
+
     };
   },
   created() {
@@ -72,29 +71,44 @@ export default {
           this.error = err.message;
         });
     },
+    // 시간
+    convertTime(noticeTime) {
+      var time = new Date(noticeTime).getTime();
+      var date = new Date(time);
+      let noticeYear = date.getFullYear();
+      let noticeMonth = date.getMonth() + 1;
+      let noticeDate = date.getDate();
+
+      let fullDate = noticeYear + "년 - " + noticeMonth + "월 - " + noticeDate + "일";
+
+      return fullDate;
+    }
   },
 };
 </script>
 
-<style scope>
+<style scoped>
 .inquire-box {
   width: 100%;
   min-height: 600px;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
 }
+
 .inquire-title {
   border-bottom: 3px solid #000;
   padding-bottom: 10px;
   line-height: 1.5;
   font-size: 15px;
 }
+
 .inquire-box .tit {
   display: inline-block;
   font-size: 24px;
   font-weight: 600;
 }
+
 .inquire-box .n-table th {
   height: 52px;
   border-bottom: 1px solid #000000;
@@ -102,20 +116,30 @@ export default {
   vertical-align: middle;
   text-align: center;
   padding: 0;
+  background-color: #f1f1f1;
 }
+
 .inquire-box .n-table.table-col td {
   height: 52px;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #ccc;
   font-size: 13px;
   vertical-align: middle;
   font-weight: normal;
   text-align: center;
 }
+
+.btn-gr {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .inquire-box a {
   text-decoration: none;
   color: #000;
   display: contents;
 }
+
 .inquire-box a:hover {
   color: #0a3bffbe;
   transition: color 0.3s ease-in-out;
@@ -135,8 +159,8 @@ export default {
   vertical-align: middle;
   border: none;
 }
+
 .inquire-box .n-btn:hover {
   background-color: #0a3bffbe;
   transition: background 0.3s ease-in-out;
-}
-</style>
+}</style>
