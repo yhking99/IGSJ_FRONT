@@ -112,7 +112,7 @@
                 <div id="tabs">
                     <ul class="tab-menu">
                         <li v-for="(tab, index) in tabs" :key="index" v-bind:class="{ active: currentTab == index }">
-                            <a href="#" onclick="return false" v-on:click="currentTab = index">{{ tab }}</a>
+                            <a href="#" onclick="return false" v-on:click="currentTab = index" value="seltab">{{ tab }}</a>
                         </li>
                     </ul>
 
@@ -197,7 +197,9 @@ export default {
             tabs: ['무통장입금', '카드결제', '카카오페이'],
             popupName: 'postcodePopup',
             post_address: '',
-            detail_address: ''
+            detail_address: '',
+            totalPrice: 0,
+            seltab:''
         };
     },
     created() {
@@ -272,16 +274,8 @@ export default {
             })
         },
         Pay() {
-            const dirtyProducts = this.productList.filter(product => product._dirty);
-
-            const productsData = dirtyProducts.map(product => {
-                return {
-                    pno: product.pno,
-                    productCnt: product.productCnt,
-                    productPrice: product.product_price
-                };
-            });
-
+            const selectedPaymentMethod = this.currentTab;
+            const payMoney = this.orderDTO.totalPrice;
             if (document.getElementById("recipient") == '') {
                 alert("수령인을 입력해주십시오.")
                 document.getElementById("recipient").focus()
@@ -312,15 +306,10 @@ export default {
                 recipient: this.recipient,
                 recipient_phone: this.recipient_phone,
 
-                /*     pno : formData,
-                    productCnt : this.product.productCnt,
-                    productPrice : this.product.product_price,
-     */
-                productList: productsData,
-                paySet: this.tabs.value,
-                // payCompany : this.,
-                payMoney: this.totalPrice,
-                payBank: this.bankList.value
+                paySet: selectedPaymentMethod,
+                payMoney: payMoney,
+                payBank: this.selectBank
+
             }).then((res) => {
                 console.log(res.data)
             }).catch((err) => {
