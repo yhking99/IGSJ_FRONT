@@ -29,11 +29,11 @@
                     <tr>
                         <td>
                             <div style="display:flex">
-                                <router-link :to="{ name: 'product', params: { pno: orderDetailList.pno } }"
+                                <!-- <router-link :to="{ name: 'product', params: { pno: orderDetailList.pno } }"
                                     class="product_name">
                                     <img :src="orderDetailList.storedFileRootName" class="img_block" alt="product_name">
                                     <p class="product_name">{{ orderDetailList.product_name }}</p>
-                                </router-link>
+                                </router-link> -->
                             </div>
                         </td>
                         <td>{{ orderDetailList.product_price }}</td>
@@ -123,7 +123,7 @@ export default {
     data() {
         return {
             orderDetailList: {
-                pno: '',
+                // pno: '',
                 orderNum: '',
                 order_date: this.convertTime(),
                 post_address: '',
