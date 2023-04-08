@@ -4,6 +4,9 @@ export default {
         fullDate : $convertTime()
     };
   },
+  created(){
+    this.$store.commit('setUrl', window.location.href)
+  },
   methods: {
     async $convertTime(noticeTime) {
       var time = new Date(noticeTime).getTime();
@@ -16,5 +19,5 @@ export default {
 
       return fullDate;
     },
-  },
-};
+  }
+}
