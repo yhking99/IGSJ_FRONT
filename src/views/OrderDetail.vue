@@ -21,7 +21,8 @@
                 <thead>
                     <tr>
                         <th>상품정보</th>
-                        <th>주문금액(수량)</th>
+                        <th>주문수량</th>
+                        <th>주문금액</th>
                         <th>주문상태</th>
                     </tr>
                 </thead>
@@ -36,7 +37,8 @@
                                 </router-link>
                             </div>
                         </td>
-                        <td>{{ orderDetailList.product_price }}</td>
+                        <td class = "productCnt">{{ orderDetailList.productCnt }} 개</td>
+                        <td>{{ Number(orderDetailList.product_price).toLocaleString() }} 원</td>
                         <td>{{ orderDetailList.paymentStatus }}</td>
                     </tr>
                 </tbody>
@@ -127,6 +129,7 @@ export default {
                 storedFileRootName: '',
                 product_name: '',
                 product_price: '',
+                productCnt : '',
                 paymentStatus: '',
                 orderDetailNum: '',
             },
@@ -262,7 +265,6 @@ a {
     display: flex;
     align-items: center;
 }
-
 
 /*배송지 정보*/
 .delivery_info {
