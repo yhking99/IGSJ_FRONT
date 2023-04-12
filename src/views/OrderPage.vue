@@ -51,58 +51,22 @@
                 </ul>
             </div>
 
-
-
-
             <!--상품정보-->
             <div class="section product">
                 <h3 class="product_title">상품 정보</h3>
 
-                    <ul :key="i" v-for="(product, i) in productList" style="width:100%">
-                        <li>
-                            <span class="product_info">
-                                <input v-model="product.pno" hidden>
-                                <img :src="product.storedFileRootName" class="product_img">
-                                <input class="productName" v-model="product.product_name" readonly>
-                            </span>
-                        </li>
-                        <li><input class="productCnt" v-model="product.productCnt" readonly>개</li>
-                        <li>{{ (product.product_price * product.productCnt).toLocaleString() }}원</li>
-                    </ul>
-
-                <!-- <table class="product_table">
-                    <colgroup>
-                        <col style="width: 60%">
-                        <col style="width: 10%">
-                        <col style="width: 10%">
-                        <col style="width: 20%">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>상품정보</th>
-                            <th>수량</th>
-                            <th>배송비</th>
-                            <th>상품금액</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr :key="i" v-for="(product, i) in productList">
-                            <td class="td_product">
-                                <a href="#">
-                                    <img :src="product.storedFileRootName" class="product_img">
-                                </a>
-                                <span class="product_info">
-                                    <input v-model="product.pno" hidden>
-                                    <input class="productName" v-model="product.product_name" readonly>
-                                </span>
-                            </td>
-                            <td><input class="productCnt" v-model="product.productCnt" readonly>개</td>
-                            <td>무료</td>
-                            <td>{{ (product.product_price * product.productCnt).toLocaleString() }}원</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-                <div class="totalPrice">총 금액: <input v-model="formattedTotalPrice" readonly>원</div>
+                <ul :key="i" v-for="(product, i) in productList" style="width:100%">
+                    <li>
+                        <span class="product_info">
+                            <input v-model="product.pno" hidden>
+                            <img :src="product.storedFileRootName" class="product_img">
+                            <input class="productName" v-model="product.product_name" readonly>
+                        </span>
+                    </li>
+                    <li><input class="productCnt" v-model="product.productCnt" readonly>개</li>
+                    <li>{{ (product.product_price * product.productCnt).toLocaleString() }}원</li>
+                </ul>
+                <div class="totalPrice">총 금액: {{ Number(formattedTotalPrice).toLocaleString() }} 원</div>
 
             </div>
 
@@ -112,7 +76,7 @@
                 <div id="tabs">
                     <ul class="tab-menu">
                         <li v-for="(tab, index) in tabs" :key="index" v-bind:class="{ active: currentTab == index }">
-                            <a href="#" onclick="return false" v-on:click="currentTab = index">{{ tab }}</a>
+                            <a href="#" onclick="return false" v-on:click="currentTab = index" value="seltab">{{ tab }}</a>
                         </li>
                     </ul>
 
@@ -197,7 +161,9 @@ export default {
             tabs: ['무통장입금', '카드결제', '카카오페이'],
             popupName: 'postcodePopup',
             post_address: '',
-            detail_address: ''
+            detail_address: '',
+            totalPrice: 0,
+            seltab: ''
         };
     },
     created() {
@@ -209,7 +175,7 @@ export default {
             const totalPrice = this.productList.reduce((acc, product) => {
                 return acc + product.product_price * product.productCnt;
             }, 0);
-            return totalPrice.toLocaleString();
+            return totalPrice;
         }
     },
 
@@ -242,7 +208,7 @@ export default {
                         fullRoadAddr += extraRoadAddr;
                     }
                     this.post_address = data.zonecode; // 5자리의 새 우편번호
-                    this.detail_address = fullRoadAddr; // 주소칸에 주소를 넣어준다. 
+                    this.detail_address = fullRoadAddr; // 주소칸에 주소를 넣어준다.
                     document.getElementById('detail_address2').focus();
                 }
             }).open({
@@ -272,15 +238,6 @@ export default {
             })
         },
         Pay() {
-            const dirtyProducts = this.productList.filter(product => product._dirty);
-
-            const productsData = dirtyProducts.map(product => {
-                return {
-                    pno: product.pno,
-                    productCnt: product.productCnt,
-                    productPrice: product.product_price
-                };
-            });
 
             if (document.getElementById("recipient") == '') {
                 alert("수령인을 입력해주십시오.")
@@ -312,15 +269,11 @@ export default {
                 recipient: this.recipient,
                 recipient_phone: this.recipient_phone,
 
-                /*     pno : formData,
-                    productCnt : this.product.productCnt,
-                    productPrice : this.product.product_price,
-     */
-                productList: productsData,
-                paySet: this.tabs.value,
-                // payCompany : this.,
-                payMoney: this.totalPrice,
-                payBank: this.bankList.value
+                paySet: this.tabs[this.currentTab],
+                payMoney: this.formattedTotalPrice,
+
+                payBank: this.selectBank
+
             }).then((res) => {
                 console.log(res.data)
             }).catch((err) => {
