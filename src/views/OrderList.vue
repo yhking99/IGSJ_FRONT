@@ -40,7 +40,8 @@
                                 </router-link>
                             </div>
                         </td>
-                        <td><input v-model="order.order_date" readonly></td> 
+                        <td>{{ convertTime(order.order_date) }}</td>
+                        <!-- <td><input v-model="order.order_date" readonly></td>  -->
                         <td><router-link :to="{name: 'orderDetail', params: {orderNum:order.orderNum}}"><input v-model="order.orderNum" class="orderNum"></router-link></td> 
                         <td><input v-model="order.productPrice" readonly></td> 
                         <td><input v-model="order.paymentStatus" readonly></td>
@@ -58,7 +59,7 @@ export default {
             orderList:{
                 storedFileRootName: '',
                 product_name: '',
-                order_date: '',
+                order_date: this.convertTime(),
                 orderNum: '',
                 productPrice: '',
                 paymentStatus: '',
@@ -82,6 +83,17 @@ export default {
                 }
             })
         },
+        convertTime(order_date) {
+            var time = new Date(order_date).getTime();
+            var date = new Date(time);
+            let noticeYear = date.getFullYear();
+            let noticeMonth = date.getMonth() + 1;
+            let noticeDate = date.getDate();
+
+            let fullDate = noticeYear + "년 " + noticeMonth + "월 " + noticeDate + "일";
+
+            return fullDate;
+        }
     }
 }
 
