@@ -3,6 +3,7 @@
         <div class="inner-container">
             <header class="passpageHeader">
                 <h2>마이페이지(Login)</h2>
+                <span style="color:red; font-size:10px;"> * 카카오 로그인 시 초기 비밀번호는 아이디와 동일합니다 (마이페이지에서 수정해주세요)</span>
             </header>
             <br />
             <div class="loginbox">
